@@ -14,7 +14,6 @@
   <link rel="apple-touch-icon" href="restorenew.jpg">
 
   <style>
-    /* Base layout */
     html, body {
       margin: 0;
       padding: 0;
@@ -39,6 +38,7 @@
       width: 95vw;
       max-width: 800px;
       box-sizing: border-box;
+      padding-top: 5vh;
     }
 
     .logo {
@@ -54,9 +54,9 @@
     }
 
     #timer {
-      font-size: 16vw;
+      font-size: 16vmin; /* Use vmin to scale better across orientations */
       font-weight: bold;
-      margin: 10px 0;
+      margin: 5px 0;
     }
 
     /* Timer buttons container */
@@ -68,6 +68,7 @@
       width: 100%;
       padding: 0 5px;
       box-sizing: border-box;
+      margin-top: 5px;
       margin-bottom: 10px;
     }
 
@@ -114,10 +115,17 @@
       background-color: #f0f0f0;
     }
 
-    /* Responsive adjustments */
+    /* Portrait adjustments */
     @media (orientation: portrait) {
+      .container {
+        padding-top: 5vh;
+      }
+      .logo {
+        max-width: 60%;
+      }
       #timer {
-        font-size: 18vw;
+        font-size: 20vmin;
+        margin-bottom: 5px;
       }
       .buttons button, #pauseButton {
         font-size: 5vw;
@@ -125,19 +133,37 @@
       }
     }
 
-    @media (orientation: landscape) {
+    /* Landscape mobile (smaller screens) */
+    @media (max-width: 500px) and (orientation: landscape) {
       #timer {
-        font-size: 12vw;
+        font-size: 15vmin;
+        margin-bottom: 5px;
       }
-      .buttons button, #pauseButton {
-        font-size: 4vw;
+      .logo {
+        max-width: 50%;
+      }
+      .buttons button {
+        flex: 1 1 45%;
+      }
+    }
+
+    /* Landscape tablet */
+    @media (min-width: 600px) and (orientation: landscape) {
+      .buttons button {
+        flex: 1 1 calc(20% - 10px); /* Spread evenly across full width */
+        max-width: none;
+        font-size: 3vw;
+      }
+      #pauseButton {
+        font-size: 3vw;
         height: 50px;
       }
     }
 
+    /* Small screens */
     @media (max-width: 400px) {
       #timer {
-        font-size: 20vw;
+        font-size: 20vmin;
       }
       .buttons button, #pauseButton {
         font-size: 6vw;
@@ -222,5 +248,6 @@
   </script>
 </body>
 </html>
+
 
 
