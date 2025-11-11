@@ -14,6 +14,7 @@
   <link rel="apple-touch-icon" href="restorenew.jpg">
 
   <style>
+    /* Base layout */
     html, body {
       margin: 0;
       padding: 0;
@@ -58,6 +59,7 @@
       margin: 10px 0;
     }
 
+    /* Timer buttons container */
     .buttons {
       display: flex;
       flex-wrap: wrap;
@@ -87,18 +89,24 @@
       background-color: #3c92af;
     }
 
+    /* Pause button container */
+    .pause-container {
+      width: 100%;
+      padding: 0 5px;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+    }
+
     #pauseButton {
-      flex: 1 1 100%; /* full width */
-      max-width: 100%;
+      width: 100%;
+      height: 50px;
+      font-size: 4vw;
+      border-radius: 12px;
+      border: none;
       background-color: white;
       color: #2b7992;
       font-weight: bold;
-      font-size: 4vw;
-      padding: 10px 0;
-      border-radius: 12px;
-      border: none;
       cursor: pointer;
-      margin-top: 10px;
       transition: background-color 0.2s;
     }
 
@@ -106,13 +114,14 @@
       background-color: #f0f0f0;
     }
 
+    /* Responsive adjustments */
     @media (orientation: portrait) {
       #timer {
         font-size: 18vw;
       }
       .buttons button, #pauseButton {
         font-size: 5vw;
-        max-width: 90%;
+        height: 60px;
       }
     }
 
@@ -122,6 +131,7 @@
       }
       .buttons button, #pauseButton {
         font-size: 4vw;
+        height: 50px;
       }
     }
 
@@ -131,6 +141,7 @@
       }
       .buttons button, #pauseButton {
         font-size: 6vw;
+        height: 50px;
       }
     }
 
@@ -143,12 +154,17 @@
     <div id="timer">00:00</div>
   </div>
 
+  <!-- Timer buttons -->
   <div class="buttons">
     <button onclick="startTimer(120)">120s</button>
     <button onclick="startTimer(90)">90s</button>
     <button onclick="startTimer(60)">60s</button>
     <button onclick="startTimer(30)">30s</button>
     <button onclick="startTimer(15)">15s</button>
+  </div>
+
+  <!-- Full-width pause button -->
+  <div class="pause-container">
     <button id="pauseButton" onclick="togglePause()">Pause</button>
   </div>
 
