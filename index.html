@@ -4,6 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Pilates Timer</title>
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#71A2B3">
+
+  <!-- iOS PWA support -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Pilates Timer">
+  <link rel="apple-touch-icon" href="restorenew.jpg">
+
   <style>
     /* Fullscreen layout */
     html, body {
@@ -184,19 +195,11 @@
       button.textContent = running ? "Pause" : "Resume";
     }
 
-    // Optional: open fullscreen automatically on desktop
-    function openFullscreen() {
-      const elem = document.documentElement;
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      } else if (elem.webkitRequestFullscreen) { 
-        elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) { 
-        elem.msRequestFullscreen();
-      }
+    // Optional: prompt user to add to home screen
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('Service Worker Registered'));
     }
-    // Uncomment the line below if you want it to automatically go fullscreen
-    // openFullscreen();
   </script>
 </body>
 </html>
