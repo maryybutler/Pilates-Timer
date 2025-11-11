@@ -240,14 +240,33 @@
       running = !running;
       button.textContent = running ? "Pause" : "Resume";
     }
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').then(reg => {
+    console.log('Service Worker registered');
 
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js')
-        .then(() => console.log('Service Worker Registered'));
-    }
+    // Check for updates periodically
+    setInterval(() => {
+      reg.update(); // Force the service worker to check for updates
+    }, 60 * 1000); // every 60 seconds
+
+    // Optional: listen for new worker activation
+    reg.addEventListener('updatefound', () => {
+      const newWorker = reg.installing;
+      newWorker.addEventListener('statechange', () => {
+        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+          // New version available, reload app
+          console.log('New version available, reloading...');
+          window.location.reload();
+        }
+      });
+    });
+  });
+}
+
   </script>
 </body>
 </html>
+
 
 
 
