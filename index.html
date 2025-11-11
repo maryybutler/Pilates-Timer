@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Pilates Timer</title>
 
-<!-- PWA manifest -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#71A2B3">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -32,20 +31,18 @@ html, body {
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around; /* Spread logo, timer, title */
   align-items: center;
   flex: 1;
   width: 95vw;
   max-width: 900px;
   box-sizing: border-box;
-  padding-top: 5vh;
+  padding: 0 5px;
 }
 
 .logo {
-  max-width: 40vmin;
+  max-width: 60vmin; /* bigger logo */
   height: auto;
-  margin: 10px auto;
-  display: block;
 }
 
 h1 {
@@ -54,9 +51,10 @@ h1 {
 }
 
 #timer {
-  font-size: 16vmin;
+  font-size: 22vmin; /* bigger timer */
   font-weight: bold;
   margin: 5px 0;
+  line-height: 1;
 }
 
 /* Timer buttons */
@@ -74,8 +72,8 @@ h1 {
 
 .buttons button {
   flex: 1 1 calc(20% - 10px);
-  font-size: 4vmin;
-  padding: 10px 0;
+  font-size: 5vmin;
+  padding: 12px 0;
   border-radius: 12px;
   border: none;
   background-color: #2b7992;
@@ -95,14 +93,13 @@ h1 {
   width: 100%;
   padding: 0 5px;
   box-sizing: border-box;
-  margin-bottom: 20px;
+  margin-bottom: 2vh;
 }
 
 #pauseButton {
   width: 100%;
-  font-size: 4vmin;
-  height: auto;
-  padding: 10px 0;
+  font-size: 5vmin;
+  padding: 12px 0;
   border-radius: 12px;
   border: none;
   background-color: white;
@@ -116,29 +113,30 @@ h1 {
   background-color: #f0f0f0;
 }
 
-/* Portrait adjustments */
+/* Portrait */
 @media (orientation: portrait) {
-  .logo { max-width: 50vmin; }
-  #timer { font-size: 20vmin; margin-bottom: 5px; }
-  .buttons button, #pauseButton { font-size: 5vmin; height: 60px; }
+  .logo { max-width: 65vmin; }
+  #timer { font-size: 25vmin; }
+  .buttons button, #pauseButton { font-size: 6vmin; padding: 14px 0; }
 }
 
 /* Landscape mobile */
 @media (max-width: 500px) and (orientation: landscape) {
-  #timer { font-size: 15vmin; margin-bottom: 5px; }
-  .buttons button { flex: 1 1 calc(30% - 10px); font-size: 5vmin; }
+  #timer { font-size: 18vmin; }
+  .logo { max-width: 50vmin; }
+  .buttons button { flex: 1 1 calc(30% - 10px); font-size: 5vmin; padding: 12px 0; }
 }
 
 /* Landscape tablet */
 @media (min-width: 600px) and (orientation: landscape) {
-  .buttons button { flex: 1 1 calc(18% - 10px); font-size: 3vmin; }
-  #pauseButton { font-size: 3vmin; }
+  .buttons button { flex: 1 1 calc(18% - 10px); font-size: 4vmin; }
+  #pauseButton { font-size: 4vmin; }
 }
 
 /* Small screens */
 @media (max-width: 400px) {
-  #timer { font-size: 20vmin; }
-  .buttons button, #pauseButton { font-size: 6vmin; height: 50px; }
+  #timer { font-size: 22vmin; }
+  .buttons button, #pauseButton { font-size: 6vmin; padding: 12px 0; }
 }
 </style>
 </head>
@@ -224,13 +222,15 @@ if ('serviceWorker' in navigator) {
       });
     });
 
-    // Optional: force update every 60s
+    // Optional: check for updates every 60s
     setInterval(() => reg.update(), 60000);
   });
 }
 </script>
 </body>
 </html>
+
+
 
 
 
