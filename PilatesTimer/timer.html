@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pilates Timer</title>
+  <style>
+    body {
+      background-color: #71A2B3;
+      color: white;
+      font-family: "Verdana", sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .logo {
+      max-width: 300px;
+      width: 50%;
+      margin-top: 20px;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin: 10px;
+    }
+
+    #timer {
+      font-size: 8em;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 20px;
+    }
+
+    button {
+      font-size: 1.5em;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      background-color: #2b7992;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #3c92af;
+    }
+
+    #pauseButton {
+      font-size: 1.8em;
+      margin: 20px;
+      background-color: white;
+      color: #2b7992;
+      border-radius: 15px;
+      padding: 20px 40px;
+    }
+
+    @media (max-width: 600px) {
+      #timer {
+        font-size: 4em;
+      }
+      button {
+        font-size: 1.2em;
+        padding: 10px 20px;
+      }
+      #pauseButton {
+        font-size: 1.4em;
+        padding: 15px 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <img src="restorenew.jpg" alt="Logo" class="logo">
+  <h1>Select Time:</h1>
+  <div id="timer">00:00</div>
+
+  <div class="buttons">
+    <button onclick="startTimer(120)">120s</button>
+    <button onclick="startTimer(90)">90s</button>
+    <button onclick="startTimer(60)">60s</button>
+    <button onclick="startTimer(30)">30s</button>
+    <button onclick="startTimer(15)">15s</button>
+  </div>
+
+  <button id="pauseButton" onclick="togglePause()">Pause</button>
+
+  <audio id="beepSound" src="beep.mp3" preload="auto"></audio>
+
+  <script>
+    let timeLeft = 0;
+    let timerInterval = null;
+    let running = false;
+
+    function updateDisplay() {
+      const mins = Math.floor(timeLeft / 60);
+      const secs = timeLeft % 60;
+      document.getElementById("timer").textContent =
+        `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+    }
+
+function startTimer(duration) {
+  document.getElementById("beepSound").play(); // unlock audio
+  document.getElementById("beepSound").pause();
+  document.getElementById("beepSound").currentTime = 0;
+
+  timeLeft = duration;
+  running = true;
+  clearInterval(timerInterval);
+  timerInterval = setInterval(updateTimer, 1000);
+  document.getElementById("pauseButton").textContent = "Pause";
+  updateDisplay();
+}
+
+
+    function updateTimer() {
+      if (running) {
+        if (timeLeft > 0) {
+          timeLeft--;
+          updateDisplay();
+        } else {
+          clearInterval(timerInterval);
+          running = false;
+          document.getElementById("beepSound").play();
+        }
+      }
+    }
+
+    function togglePause() {
+      const button = document.getElementById("pauseButton");
+      running = !running;
+      if (running) {
+        button.textContent = "Pause";
+      } else {
+        button.textContent = "Resume";
+      }
+    }
+  </script>
+</body>
+</html>
