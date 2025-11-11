@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pilates-timer-cache-v4'; // Increment this for new versions
+const CACHE_NAME = 'pilates-timer-cache-v5';
 const FILES_TO_CACHE = [
   './index.html',
   './manifest.json',
@@ -11,32 +11,35 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => cache.addAll(FILES_TO_CACHE))
   );
-  self.skipWaiting(); // Activate immediately
+  self.skipWaiting();
 });
 
 // Activate: remove old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(
-        keys.map(key => key !== CACHE_NAME && caches.delete(key))
-      )
+      Promise.all(keys.map(key => key !== CACHE_NAME && caches.delete(key)))
     )
   );
-  self.clients.claim(); // Take control of all clients immediately
+  self.clients.claim();
 });
 
-// Fetch: serve cached files first, then network
+// Fetch: network-first for main files, cache-first for others
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then(resp => resp || fetch(event.request))
-  );
-});
-
-// Optional: notify users of updates (can trigger UI in your app)
-self.addEventListener('message', (event) => {
-  if (event.data === 'skipWaiting') {
-    self.skipWaiting();
+  if (event.request.url.endsWith('.html') ||
+      event.request.url.endsWith('.css') ||
+      event.request.url.endsWith('.js')) {
+    event.respondWith(
+      fetch(event.request)
+        .then(resp => {
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, resp.clone()));
+          return resp;
+        })
+        .catch(() => caches.match(event.request))
+    );
+  } else {
+    event.respondWith(
+      caches.match(event.request).then(resp => resp || fetch(event.request))
+    );
   }
 });
-
