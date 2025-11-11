@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pilates-timer-cache-v9';
+const CACHE_NAME = 'pilates-timer-cache-v10';
 const FILES_TO_CACHE = [
   './index.html',
   './manifest.json',
