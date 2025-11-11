@@ -1,16 +1,20 @@
 {
   "name": "Pilates Timer",
   "short_name": "Timer",
-  "start_url": "timer.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#71A2B3",
   "theme_color": "#71A2B3",
-  "orientation": "landscape",
   "icons": [
     {
       "src": "restorenew.jpg",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/jpeg"
+    },
+    {
+      "src": "restorenew.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
     }
   ]
 }
