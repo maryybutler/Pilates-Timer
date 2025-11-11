@@ -8,15 +8,12 @@
   <!-- PWA manifest -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#71A2B3">
-
-  <!-- iOS PWA support -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Pilates Timer">
   <link rel="apple-touch-icon" href="restorenew.jpg">
 
   <style>
-    /* Fullscreen layout */
     html, body {
       margin: 0;
       padding: 0;
@@ -43,7 +40,6 @@
       box-sizing: border-box;
     }
 
-    /* Logo at top */
     .logo {
       max-width: 50%;
       height: auto;
@@ -56,28 +52,28 @@
       margin: 5px 0;
     }
 
-    /* Timer fills most of screen */
     #timer {
-      font-size: 16vw; /* scales with screen */
+      font-size: 16vw;
       font-weight: bold;
       margin: 10px 0;
     }
 
-    /* Buttons at bottom */
     .buttons {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 10px;
-      margin-bottom: 10px;
       width: 100%;
+      padding: 0 5px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
     }
 
-    .buttons button, #pauseButton {
+    .buttons button {
       flex: 1 1 40%;
       max-width: 180px;
       font-size: 4vw;
-      padding: 10px;
+      padding: 10px 0;
       border: none;
       border-radius: 12px;
       background-color: #2b7992;
@@ -87,19 +83,29 @@
       transition: background-color 0.2s;
     }
 
-    .buttons button:hover, #pauseButton:hover {
+    .buttons button:hover {
       background-color: #3c92af;
     }
 
-    /* Pause/Resume button distinct */
     #pauseButton {
+      flex: 1 1 100%; /* full width */
+      max-width: 100%;
       background-color: white;
       color: #2b7992;
+      font-weight: bold;
+      font-size: 4vw;
+      padding: 10px 0;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
       margin-top: 10px;
-      max-width: 200px;
+      transition: background-color 0.2s;
     }
 
-    /* Portrait adjustments */
+    #pauseButton:hover {
+      background-color: #f0f0f0;
+    }
+
     @media (orientation: portrait) {
       #timer {
         font-size: 18vw;
@@ -110,7 +116,6 @@
       }
     }
 
-    /* Landscape adjustments */
     @media (orientation: landscape) {
       #timer {
         font-size: 12vw;
@@ -120,7 +125,6 @@
       }
     }
 
-    /* Small screens */
     @media (max-width: 400px) {
       #timer {
         font-size: 20vw;
@@ -129,6 +133,7 @@
         font-size: 6vw;
       }
     }
+
   </style>
 </head>
 <body>
@@ -144,9 +149,8 @@
     <button onclick="startTimer(60)">60s</button>
     <button onclick="startTimer(30)">30s</button>
     <button onclick="startTimer(15)">15s</button>
+    <button id="pauseButton" onclick="togglePause()">Pause</button>
   </div>
-
-  <button id="pauseButton" onclick="togglePause()">Pause</button>
 
   <audio id="beepSound" src="beep.mp3" preload="auto"></audio>
 
@@ -195,7 +199,6 @@
       button.textContent = running ? "Pause" : "Resume";
     }
 
-    // Optional: prompt user to add to home screen
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js')
         .then(() => console.log('Service Worker Registered'));
@@ -203,4 +206,5 @@
   </script>
 </body>
 </html>
+
 
