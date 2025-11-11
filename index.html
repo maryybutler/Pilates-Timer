@@ -23,37 +23,38 @@ html, body {
   color: white;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center; /* center content vertically */
   align-items: center;
   overflow: hidden;
 }
 
+/* Container for logo, title, timer */
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: space-around; /* Spread logo, timer, title */
+  justify-content: center; /* center vertically */
   align-items: center;
   flex: 1;
   width: 95vw;
   max-width: 900px;
   box-sizing: border-box;
-  padding: 0 5px;
+  padding: 5vh 5px; /* equal space top & bottom */
 }
 
 .logo {
-  max-width: 60vmin; /* bigger logo */
+  max-width: 60vmin; /* large responsive logo */
   height: auto;
 }
 
 h1 {
   font-size: 2.5vw;
-  margin: 5px 0;
+  margin: 0 0 1vh 0; /* less space below title */
 }
 
 #timer {
-  font-size: 22vmin; /* bigger timer */
+  font-size: 22vmin; /* large timer */
   font-weight: bold;
-  margin: 5px 0;
+  margin: 2vh 0;
   line-height: 1;
 }
 
@@ -66,8 +67,8 @@ h1 {
   width: 100%;
   padding: 0 5px;
   box-sizing: border-box;
-  margin-top: 5px;
-  margin-bottom: 10px;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
 }
 
 .buttons button {
@@ -93,7 +94,7 @@ h1 {
   width: 100%;
   padding: 0 5px;
   box-sizing: border-box;
-  margin-bottom: 2vh;
+  margin-bottom: 5vh; /* extra space below */
 }
 
 #pauseButton {
@@ -229,6 +230,7 @@ if ('serviceWorker' in navigator) {
 </script>
 </body>
 </html>
+
 
 
 
