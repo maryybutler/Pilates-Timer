@@ -5,95 +5,131 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pilates Timer</title>
   <style>
-    body {
-      background-color: #71A2B3;
-      color: white;
-      font-family: "Verdana", sans-serif;
-      text-align: center;
+    /* General reset and body */
+    html, body {
       margin: 0;
       padding: 0;
+      height: 100%;
+      width: 100%;
+      background-color: #71A2B3;
+      font-family: "Verdana", sans-serif;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
+    .container {
+      text-align: center;
+      width: 95vw;
+      max-width: 800px;
+      box-sizing: border-box;
+    }
+
+    /* Logo scales automatically */
     .logo {
-      max-width: 300px;
-      width: 50%;
-      margin-top: 20px;
+      max-width: 50%;
+      height: auto;
+      margin: 10px auto;
+      display: block;
     }
 
     h1 {
-      font-size: 2em;
-      margin: 10px;
+      font-size: 2.5vw;
+      margin: 10px 0;
     }
 
+    /* Timer display */
     #timer {
-      font-size: 8em;
+      font-size: 12vw; /* scales with viewport width */
       font-weight: bold;
       margin: 20px 0;
     }
 
+    /* Buttons layout */
     .buttons {
       display: flex;
-      justify-content: center;
       flex-wrap: wrap;
-      gap: 15px;
-      margin: 20px;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
     }
 
-    button {
-      font-size: 1.5em;
-      padding: 15px 30px;
+    .buttons button, #pauseButton {
+      flex: 1 1 40%;
+      max-width: 180px;
+      font-size: 4vw; /* scales with screen */
+      padding: 10px;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       background-color: #2b7992;
       color: white;
+      font-weight: bold;
       cursor: pointer;
       transition: background-color 0.2s;
     }
 
-    button:hover {
+    .buttons button:hover, #pauseButton:hover {
       background-color: #3c92af;
     }
 
+    /* Pause/Resume button distinct style */
     #pauseButton {
-      font-size: 1.8em;
-      margin: 20px;
       background-color: white;
       color: #2b7992;
-      border-radius: 15px;
-      padding: 20px 40px;
+      margin-top: 15px;
     }
 
-    @media (max-width: 600px) {
+    /* Portrait adjustments */
+    @media (orientation: portrait) {
       #timer {
-        font-size: 4em;
+        font-size: 14vw;
       }
-      button {
-        font-size: 1.2em;
-        padding: 10px 20px;
+      .buttons button, #pauseButton {
+        font-size: 5vw;
+        max-width: 90%;
       }
-      #pauseButton {
-        font-size: 1.4em;
-        padding: 15px 30px;
+    }
+
+    /* Landscape adjustments */
+    @media (orientation: landscape) {
+      #timer {
+        font-size: 10vw;
+      }
+      .buttons button, #pauseButton {
+        font-size: 4vw;
+      }
+    }
+
+    /* Small screen fallback */
+    @media (max-width: 400px) {
+      #timer {
+        font-size: 16vw;
+      }
+      .buttons button, #pauseButton {
+        font-size: 6vw;
       }
     }
   </style>
 </head>
 <body>
-  <img src="restorenew.jpg" alt="Logo" class="logo">
-  <h1>Select Time:</h1>
-  <div id="timer">00:00</div>
+  <div class="container">
+    <img src="restorenew.jpg" alt="Logo" class="logo">
+    <h1>Select Time:</h1>
+    <div id="timer">00:00</div>
 
-  <div class="buttons">
-    <button onclick="startTimer(120)">120s</button>
-    <button onclick="startTimer(90)">90s</button>
-    <button onclick="startTimer(60)">60s</button>
-    <button onclick="startTimer(30)">30s</button>
-    <button onclick="startTimer(15)">15s</button>
+    <div class="buttons">
+      <button onclick="startTimer(120)">120s</button>
+      <button onclick="startTimer(90)">90s</button>
+      <button onclick="startTimer(60)">60s</button>
+      <button onclick="startTimer(30)">30s</button>
+      <button onclick="startTimer(15)">15s</button>
+    </div>
+
+    <button id="pauseButton" onclick="togglePause()">Pause</button>
+
+    <audio id="beepSound" src="beep.mp3" preload="auto"></audio>
   </div>
-
-  <button id="pauseButton" onclick="togglePause()">Pause</button>
-
-  <audio id="beepSound" src="beep.mp3" preload="auto"></audio>
 
   <script>
     let timeLeft = 0;
@@ -107,19 +143,20 @@
         `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
     }
 
-function startTimer(duration) {
-  document.getElementById("beepSound").play(); // unlock audio
-  document.getElementById("beepSound").pause();
-  document.getElementById("beepSound").currentTime = 0;
+    function startTimer(duration) {
+      // Unlock audio on first tap
+      const beep = document.getElementById("beepSound");
+      beep.play().catch(() => {});
+      beep.pause();
+      beep.currentTime = 0;
 
-  timeLeft = duration;
-  running = true;
-  clearInterval(timerInterval);
-  timerInterval = setInterval(updateTimer, 1000);
-  document.getElementById("pauseButton").textContent = "Pause";
-  updateDisplay();
-}
-
+      timeLeft = duration;
+      running = true;
+      clearInterval(timerInterval);
+      timerInterval = setInterval(updateTimer, 1000);
+      document.getElementById("pauseButton").textContent = "Pause";
+      updateDisplay();
+    }
 
     function updateTimer() {
       if (running) {
@@ -137,12 +174,10 @@ function startTimer(duration) {
     function togglePause() {
       const button = document.getElementById("pauseButton");
       running = !running;
-      if (running) {
-        button.textContent = "Pause";
-      } else {
-        button.textContent = "Resume";
-      }
+      button.textContent = running ? "Pause" : "Resume";
     }
   </script>
 </body>
 </html>
+
+
