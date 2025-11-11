@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pilates-timer-cache-v5';
+const CACHE_NAME = 'pilates-timer-cache-v6';
 const FILES_TO_CACHE = [
   './index.html',
   './manifest.json',
@@ -6,7 +6,7 @@ const FILES_TO_CACHE = [
   './beep.mp3'
 ];
 
-// Install: cache all files
+// Install: cache files
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => cache.addAll(FILES_TO_CACHE))
@@ -24,7 +24,7 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch: network-first for main files, cache-first for others
+// Fetch: network-first for main files
 self.addEventListener('fetch', (event) => {
   if (event.request.url.endsWith('.html') ||
       event.request.url.endsWith('.css') ||
