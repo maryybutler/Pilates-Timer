@@ -1,253 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Pilates Timer</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Pilates Timer</title>
 
-  <!-- PWA manifest -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#71A2B3">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Pilates Timer">
-  <link rel="apple-touch-icon" href="restorenew.jpg">
+<!-- PWA manifest -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#71A2B3">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Pilates Timer">
+<link rel="apple-touch-icon" href="restorenew.jpg">
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      background-color: #71A2B3;
-      font-family: "Verdana", sans-serif;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      overflow: hidden;
-    }
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #71A2B3;
+  font-family: "Verdana", sans-serif;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+}
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      flex: 1;
-      width: 95vw;
-      max-width: 800px;
-      box-sizing: border-box;
-      padding-top: 5vh;
-    }
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  width: 95vw;
+  max-width: 900px;
+  box-sizing: border-box;
+  padding-top: 5vh;
+}
 
-    .logo {
-      max-width: 50%;
-      height: auto;
-      margin: 10px auto;
-      display: block;
-    }
+.logo {
+  max-width: 40vmin;
+  height: auto;
+  margin: 10px auto;
+  display: block;
+}
 
-    h1 {
-      font-size: 2.5vw;
-      margin: 5px 0;
-    }
+h1 {
+  font-size: 2.5vw;
+  margin: 5px 0;
+}
 
-    #timer {
-      font-size: 16vmin; /* Use vmin to scale better across orientations */
-      font-weight: bold;
-      margin: 5px 0;
-    }
+#timer {
+  font-size: 16vmin;
+  font-weight: bold;
+  margin: 5px 0;
+}
 
-    /* Timer buttons container */
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      padding: 0 5px;
-      box-sizing: border-box;
-      margin-top: 5px;
-      margin-bottom: 10px;
-    }
+/* Timer buttons */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 0 5px;
+  box-sizing: border-box;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
 
-    .buttons button {
-      flex: 1 1 40%;
-      max-width: 180px;
-      font-size: 4vw;
-      padding: 10px 0;
-      border: none;
-      border-radius: 12px;
-      background-color: #2b7992;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
+.buttons button {
+  flex: 1 1 calc(20% - 10px);
+  font-size: 4vmin;
+  padding: 10px 0;
+  border-radius: 12px;
+  border: none;
+  background-color: #2b7992;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  min-width: 60px;
+}
 
-    .buttons button:hover {
-      background-color: #3c92af;
-    }
+.buttons button:hover {
+  background-color: #3c92af;
+}
 
-    /* Pause button container */
-    .pause-container {
-      width: 100%;
-      padding: 0 5px;
-      box-sizing: border-box;
-      margin-bottom: 20px;
-    }
+/* Pause button */
+.pause-container {
+  width: 100%;
+  padding: 0 5px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
 
-    #pauseButton {
-      width: 100%;
-      height: 50px;
-      font-size: 4vw;
-      border-radius: 12px;
-      border: none;
-      background-color: white;
-      color: #2b7992;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
+#pauseButton {
+  width: 100%;
+  font-size: 4vmin;
+  height: auto;
+  padding: 10px 0;
+  border-radius: 12px;
+  border: none;
+  background-color: white;
+  color: #2b7992;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
 
-    #pauseButton:hover {
-      background-color: #f0f0f0;
-    }
+#pauseButton:hover {
+  background-color: #f0f0f0;
+}
 
-    /* Portrait adjustments */
-    @media (orientation: portrait) {
-      .container {
-        padding-top: 5vh;
-      }
-      .logo {
-        max-width: 60%;
-      }
-      #timer {
-        font-size: 20vmin;
-        margin-bottom: 5px;
-      }
-      .buttons button, #pauseButton {
-        font-size: 5vw;
-        height: 60px;
-      }
-    }
+/* Portrait adjustments */
+@media (orientation: portrait) {
+  .logo { max-width: 50vmin; }
+  #timer { font-size: 20vmin; margin-bottom: 5px; }
+  .buttons button, #pauseButton { font-size: 5vmin; height: 60px; }
+}
 
-    /* Landscape mobile (smaller screens) */
-    @media (max-width: 500px) and (orientation: landscape) {
-      #timer {
-        font-size: 15vmin;
-        margin-bottom: 5px;
-      }
-      .logo {
-        max-width: 50%;
-      }
-      .buttons button {
-        flex: 1 1 45%;
-      }
-    }
+/* Landscape mobile */
+@media (max-width: 500px) and (orientation: landscape) {
+  #timer { font-size: 15vmin; margin-bottom: 5px; }
+  .buttons button { flex: 1 1 calc(30% - 10px); font-size: 5vmin; }
+}
 
-    /* Landscape tablet */
-    @media (min-width: 600px) and (orientation: landscape) {
-      .buttons button {
-        flex: 1 1 calc(20% - 10px); /* Spread evenly across full width */
-        max-width: none;
-        font-size: 3vw;
-      }
-      #pauseButton {
-        font-size: 3vw;
-        height: 50px;
-      }
-    }
+/* Landscape tablet */
+@media (min-width: 600px) and (orientation: landscape) {
+  .buttons button { flex: 1 1 calc(18% - 10px); font-size: 3vmin; }
+  #pauseButton { font-size: 3vmin; }
+}
 
-    /* Small screens */
-    @media (max-width: 400px) {
-      #timer {
-        font-size: 20vmin;
-      }
-      .buttons button, #pauseButton {
-        font-size: 6vw;
-        height: 50px;
-      }
-    }
-
-  </style>
+/* Small screens */
+@media (max-width: 400px) {
+  #timer { font-size: 20vmin; }
+  .buttons button, #pauseButton { font-size: 6vmin; height: 50px; }
+}
+</style>
 </head>
+
 <body>
-  <div class="container">
-    <img src="restorenew.jpg" alt="Logo" class="logo">
-    <h1>Select Time:</h1>
-    <div id="timer">00:00</div>
-  </div>
+<div class="container">
+  <img src="restorenew.jpg" alt="Logo" class="logo">
+  <h1>Select Time:</h1>
+  <div id="timer">00:00</div>
+</div>
 
-  <!-- Timer buttons -->
-  <div class="buttons">
-    <button onclick="startTimer(120)">120s</button>
-    <button onclick="startTimer(90)">90s</button>
-    <button onclick="startTimer(60)">60s</button>
-    <button onclick="startTimer(30)">30s</button>
-    <button onclick="startTimer(15)">15s</button>
-  </div>
+<div class="buttons">
+  <button onclick="startTimer(120)">120s</button>
+  <button onclick="startTimer(90)">90s</button>
+  <button onclick="startTimer(60)">60s</button>
+  <button onclick="startTimer(30)">30s</button>
+  <button onclick="startTimer(15)">15s</button>
+</div>
 
-  <!-- Full-width pause button -->
-  <div class="pause-container">
-    <button id="pauseButton" onclick="togglePause()">Pause</button>
-  </div>
+<div class="pause-container">
+  <button id="pauseButton" onclick="togglePause()">Pause</button>
+</div>
 
-  <audio id="beepSound" src="beep.mp3" preload="auto"></audio>
+<audio id="beepSound" src="beep.mp3" preload="auto"></audio>
 
-  <script>
-    let timeLeft = 0;
-    let timerInterval = null;
-    let running = false;
+<script>
+let timeLeft = 0;
+let timerInterval = null;
+let running = false;
 
-    function updateDisplay() {
-      const mins = Math.floor(timeLeft / 60);
-      const secs = timeLeft % 60;
-      document.getElementById("timer").textContent =
-        `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
-    }
+function updateDisplay() {
+  const mins = Math.floor(timeLeft / 60);
+  const secs = timeLeft % 60;
+  document.getElementById("timer").textContent =
+    `${mins.toString().padStart(2,"0")}:${secs.toString().padStart(2,"0")}`;
+}
 
-    function startTimer(duration) {
-      const beep = document.getElementById("beepSound");
-      beep.play().catch(() => {});
-      beep.pause();
-      beep.currentTime = 0;
+function startTimer(duration) {
+  const beep = document.getElementById("beepSound");
+  beep.play().catch(() => {});
+  beep.pause();
+  beep.currentTime = 0;
 
-      timeLeft = duration;
-      running = true;
-      clearInterval(timerInterval);
-      timerInterval = setInterval(updateTimer, 1000);
-      document.getElementById("pauseButton").textContent = "Pause";
+  timeLeft = duration;
+  running = true;
+  clearInterval(timerInterval);
+  timerInterval = setInterval(updateTimer, 1000);
+  document.getElementById("pauseButton").textContent = "Pause";
+  updateDisplay();
+}
+
+function updateTimer() {
+  if (running) {
+    if (timeLeft > 0) {
+      timeLeft--;
       updateDisplay();
+    } else {
+      clearInterval(timerInterval);
+      running = false;
+      document.getElementById("beepSound").play();
     }
+  }
+}
 
-    function updateTimer() {
-      if (running) {
-        if (timeLeft > 0) {
-          timeLeft--;
-          updateDisplay();
-        } else {
-          clearInterval(timerInterval);
-          running = false;
-          document.getElementById("beepSound").play();
-        }
-      }
-    }
+function togglePause() {
+  const button = document.getElementById("pauseButton");
+  running = !running;
+  button.textContent = running ? "Pause" : "Resume";
+}
 
-    function togglePause() {
-      const button = document.getElementById("pauseButton");
-      running = !running;
-      button.textContent = running ? "Pause" : "Resume";
-    }
+// Service Worker registration + auto-update
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').then(reg => {
     console.log('Service Worker registered');
-
-    if (reg.waiting) {
-      // New worker is waiting to activate
-      reg.waiting.postMessage({ type: 'SKIP_WAITING' });
-    }
 
     reg.addEventListener('updatefound', () => {
       const newWorker = reg.installing;
@@ -258,18 +223,12 @@ if ('serviceWorker' in navigator) {
         }
       });
     });
-  });
 
-  // Listen for skipWaiting message in sw.js
-  navigator.serviceWorker.addEventListener('message', event => {
-    if (event.data && event.data.type === 'SKIP_WAITING') {
-      window.location.reload();
-    }
+    // Optional: force update every 60s
+    setInterval(() => reg.update(), 60000);
   });
 }
-
-
-  </script>
+</script>
 </body>
 </html>
 
