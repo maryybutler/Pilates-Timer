@@ -42,7 +42,7 @@ html, body {
 }
 
 .logo {
-  max-width: 60vmin; /* larger responsive logo */
+  max-width: 60vmin; /* responsive logo */
   height: auto;
 }
 
@@ -69,7 +69,7 @@ html, body {
 .buttons button {
   flex: 1 1 calc(20% - 10px);
   font-size: 5vmin;
-  padding: 12px 0;
+  padding: 20px 0; /* increased height */
   border-radius: 12px;
   border: none;
   background-color: #2b7992;
@@ -78,6 +78,9 @@ html, body {
   cursor: pointer;
   transition: background-color 0.2s;
   min-width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* centers text vertically */
 }
 
 .buttons button:hover {
@@ -89,13 +92,13 @@ html, body {
   width: 100%;
   padding: 0 5px;
   box-sizing: border-box;
-  margin-bottom: 5vh; /* extra space below pause button */
+  margin-bottom: 5vh; /* extra space below */
 }
 
 #pauseButton {
   width: 100%;
   font-size: 5vmin;
-  padding: 12px 0;
+  padding: 20px 0; /* match larger button height */
   border-radius: 12px;
   border: none;
   background-color: white;
@@ -103,6 +106,9 @@ html, body {
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* centers text */
 }
 
 #pauseButton:hover {
@@ -113,27 +119,27 @@ html, body {
 @media (orientation: portrait) {
   .logo { max-width: 65vmin; }
   #timer { font-size: 32vmin; } /* larger for portrait */
-  .buttons button, #pauseButton { font-size: 6vmin; padding: 14px 0; }
+  .buttons button, #pauseButton { font-size: 6vmin; padding: 22px 0; }
 }
 
 /* Landscape mobile */
 @media (max-width: 500px) and (orientation: landscape) {
   #timer { font-size: 22vmin; }
   .logo { max-width: 50vmin; }
-  .buttons button { flex: 1 1 calc(30% - 10px); font-size: 5vmin; padding: 12px 0; }
+  .buttons button, #pauseButton { flex: 1 1 calc(30% - 10px); font-size: 5vmin; padding: 20px 0; }
 }
 
 /* Landscape tablet */
 @media (min-width: 600px) and (orientation: landscape) {
   #timer { font-size: 28vmin; }
-  .buttons button { flex: 1 1 calc(18% - 10px); font-size: 4vmin; }
-  #pauseButton { font-size: 4vmin; }
+  .buttons button { flex: 1 1 calc(18% - 10px); font-size: 4vmin; padding: 20px 0; }
+  #pauseButton { font-size: 4vmin; padding: 20px 0; }
 }
 
 /* Small screens */
 @media (max-width: 400px) {
   #timer { font-size: 26vmin; }
-  .buttons button, #pauseButton { font-size: 6vmin; padding: 12px 0; }
+  .buttons button, #pauseButton { font-size: 6vmin; padding: 22px 0; }
 }
 </style>
 </head>
