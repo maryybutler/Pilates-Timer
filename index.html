@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Pilates Timer</title>
   <style>
-    /* General reset and body */
+    /* Fullscreen layout */
     html, body {
       margin: 0;
       padding: 0;
@@ -15,18 +15,24 @@
       font-family: "Verdana", sans-serif;
       color: white;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
+      overflow: hidden;
     }
 
     .container {
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
       width: 95vw;
       max-width: 800px;
       box-sizing: border-box;
     }
 
-    /* Logo scales automatically */
+    /* Logo at top */
     .logo {
       max-width: 50%;
       height: auto;
@@ -36,29 +42,30 @@
 
     h1 {
       font-size: 2.5vw;
+      margin: 5px 0;
+    }
+
+    /* Timer fills most of screen */
+    #timer {
+      font-size: 16vw; /* scales with screen */
+      font-weight: bold;
       margin: 10px 0;
     }
 
-    /* Timer display */
-    #timer {
-      font-size: 12vw; /* scales with viewport width */
-      font-weight: bold;
-      margin: 20px 0;
-    }
-
-    /* Buttons layout */
+    /* Buttons at bottom */
     .buttons {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 10px;
-      margin: 20px 0;
+      margin-bottom: 10px;
+      width: 100%;
     }
 
     .buttons button, #pauseButton {
       flex: 1 1 40%;
       max-width: 180px;
-      font-size: 4vw; /* scales with screen */
+      font-size: 4vw;
       padding: 10px;
       border: none;
       border-radius: 12px;
@@ -73,17 +80,18 @@
       background-color: #3c92af;
     }
 
-    /* Pause/Resume button distinct style */
+    /* Pause/Resume button distinct */
     #pauseButton {
       background-color: white;
       color: #2b7992;
-      margin-top: 15px;
+      margin-top: 10px;
+      max-width: 200px;
     }
 
     /* Portrait adjustments */
     @media (orientation: portrait) {
       #timer {
-        font-size: 14vw;
+        font-size: 18vw;
       }
       .buttons button, #pauseButton {
         font-size: 5vw;
@@ -94,17 +102,17 @@
     /* Landscape adjustments */
     @media (orientation: landscape) {
       #timer {
-        font-size: 10vw;
+        font-size: 12vw;
       }
       .buttons button, #pauseButton {
         font-size: 4vw;
       }
     }
 
-    /* Small screen fallback */
+    /* Small screens */
     @media (max-width: 400px) {
       #timer {
-        font-size: 16vw;
+        font-size: 20vw;
       }
       .buttons button, #pauseButton {
         font-size: 6vw;
@@ -117,19 +125,19 @@
     <img src="restorenew.jpg" alt="Logo" class="logo">
     <h1>Select Time:</h1>
     <div id="timer">00:00</div>
-
-    <div class="buttons">
-      <button onclick="startTimer(120)">120s</button>
-      <button onclick="startTimer(90)">90s</button>
-      <button onclick="startTimer(60)">60s</button>
-      <button onclick="startTimer(30)">30s</button>
-      <button onclick="startTimer(15)">15s</button>
-    </div>
-
-    <button id="pauseButton" onclick="togglePause()">Pause</button>
-
-    <audio id="beepSound" src="beep.mp3" preload="auto"></audio>
   </div>
+
+  <div class="buttons">
+    <button onclick="startTimer(120)">120s</button>
+    <button onclick="startTimer(90)">90s</button>
+    <button onclick="startTimer(60)">60s</button>
+    <button onclick="startTimer(30)">30s</button>
+    <button onclick="startTimer(15)">15s</button>
+  </div>
+
+  <button id="pauseButton" onclick="togglePause()">Pause</button>
+
+  <audio id="beepSound" src="beep.mp3" preload="auto"></audio>
 
   <script>
     let timeLeft = 0;
@@ -144,7 +152,6 @@
     }
 
     function startTimer(duration) {
-      // Unlock audio on first tap
       const beep = document.getElementById("beepSound");
       beep.play().catch(() => {});
       beep.pause();
@@ -176,8 +183,21 @@
       running = !running;
       button.textContent = running ? "Pause" : "Resume";
     }
+
+    // Optional: open fullscreen automatically on desktop
+    function openFullscreen() {
+      const elem = document.documentElement;
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.webkitRequestFullscreen) { 
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { 
+        elem.msRequestFullscreen();
+      }
+    }
+    // Uncomment the line below if you want it to automatically go fullscreen
+    // openFullscreen();
   </script>
 </body>
 </html>
-
 
