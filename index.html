@@ -28,11 +28,11 @@ html, body {
   overflow: hidden;
 }
 
-/* Container for logo, title, timer */
+/* Container for logo and timer */
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* center vertically */
+  justify-content: center; /* vertical centering */
   align-items: center;
   flex: 1;
   width: 95vw;
@@ -42,17 +42,12 @@ html, body {
 }
 
 .logo {
-  max-width: 60vmin; /* large responsive logo */
+  max-width: 60vmin; /* larger responsive logo */
   height: auto;
 }
 
-h1 {
-  font-size: 2.5vw;
-  margin: 0 0 1vh 0; /* less space below title */
-}
-
 #timer {
-  font-size: 22vmin; /* large timer */
+  font-size: 28vmin; /* enlarged timer */
   font-weight: bold;
   margin: 2vh 0;
   line-height: 1;
@@ -94,7 +89,7 @@ h1 {
   width: 100%;
   padding: 0 5px;
   box-sizing: border-box;
-  margin-bottom: 5vh; /* extra space below */
+  margin-bottom: 5vh; /* extra space below pause button */
 }
 
 #pauseButton {
@@ -117,26 +112,27 @@ h1 {
 /* Portrait */
 @media (orientation: portrait) {
   .logo { max-width: 65vmin; }
-  #timer { font-size: 25vmin; }
+  #timer { font-size: 32vmin; } /* larger for portrait */
   .buttons button, #pauseButton { font-size: 6vmin; padding: 14px 0; }
 }
 
 /* Landscape mobile */
 @media (max-width: 500px) and (orientation: landscape) {
-  #timer { font-size: 18vmin; }
+  #timer { font-size: 22vmin; }
   .logo { max-width: 50vmin; }
   .buttons button { flex: 1 1 calc(30% - 10px); font-size: 5vmin; padding: 12px 0; }
 }
 
 /* Landscape tablet */
 @media (min-width: 600px) and (orientation: landscape) {
+  #timer { font-size: 28vmin; }
   .buttons button { flex: 1 1 calc(18% - 10px); font-size: 4vmin; }
   #pauseButton { font-size: 4vmin; }
 }
 
 /* Small screens */
 @media (max-width: 400px) {
-  #timer { font-size: 22vmin; }
+  #timer { font-size: 26vmin; }
   .buttons button, #pauseButton { font-size: 6vmin; padding: 12px 0; }
 }
 </style>
@@ -145,7 +141,6 @@ h1 {
 <body>
 <div class="container">
   <img src="restorenew.jpg" alt="Logo" class="logo">
-  <h1>Select Time:</h1>
   <div id="timer">00:00</div>
 </div>
 
@@ -230,6 +225,8 @@ if ('serviceWorker' in navigator) {
 </script>
 </body>
 </html>
+
+
 
 
 
