@@ -244,28 +244,35 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').then(reg => {
     console.log('Service Worker registered');
 
-    // Check for updates periodically
-    setInterval(() => {
-      reg.update(); // Force the service worker to check for updates
-    }, 60 * 1000); // every 60 seconds
+    if (reg.waiting) {
+      // New worker is waiting to activate
+      reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+    }
 
-    // Optional: listen for new worker activation
     reg.addEventListener('updatefound', () => {
       const newWorker = reg.installing;
       newWorker.addEventListener('statechange', () => {
         if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-          // New version available, reload app
           console.log('New version available, reloading...');
           window.location.reload();
         }
       });
     });
   });
+
+  // Listen for skipWaiting message in sw.js
+  navigator.serviceWorker.addEventListener('message', event => {
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+      window.location.reload();
+    }
+  });
 }
+
 
   </script>
 </body>
 </html>
+
 
 
 
